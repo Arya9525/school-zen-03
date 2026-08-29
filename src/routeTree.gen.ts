@@ -13,6 +13,7 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as PrincipalLoginRouteImport } from './routes/principal.login'
 import { Route as SuperIndexRouteImport } from './routes/super.index'
 import { Route as SuperLoginRouteImport } from './routes/super.login'
+import { Route as SuperSchoolsRouteImport } from './routes/super.schools'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -34,17 +35,24 @@ const SuperLoginRoute = SuperLoginRouteImport.update({
   path: '/super/login',
   getParentRoute: () => rootRouteImport,
 } as any)
+const SuperSchoolsRoute = SuperSchoolsRouteImport.update({
+  id: '/super/schools',
+  path: '/super/schools',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/principal/login': typeof PrincipalLoginRoute
   '/super/login': typeof SuperLoginRoute
+  '/super/schools': typeof SuperSchoolsRoute
   '/super/': typeof SuperIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/principal/login': typeof PrincipalLoginRoute
   '/super/login': typeof SuperLoginRoute
+  '/super/schools': typeof SuperSchoolsRoute
   '/super': typeof SuperIndexRoute
 }
 export interface FileRoutesById {
@@ -52,20 +60,29 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/principal/login': typeof PrincipalLoginRoute
   '/super/login': typeof SuperLoginRoute
+  '/super/schools': typeof SuperSchoolsRoute
   '/super/': typeof SuperIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/principal/login' | '/super/login' | '/super/'
+  fullPaths:
+    '/' | '/principal/login' | '/super/login' | '/super/schools' | '/super/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/principal/login' | '/super/login' | '/super'
-  id: '__root__' | '/' | '/principal/login' | '/super/login' | '/super/'
+  to: '/' | '/principal/login' | '/super/login' | '/super/schools' | '/super'
+  id:
+    | '__root__'
+    | '/'
+    | '/principal/login'
+    | '/super/login'
+    | '/super/schools'
+    | '/super/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   PrincipalLoginRoute: typeof PrincipalLoginRoute
   SuperLoginRoute: typeof SuperLoginRoute
+  SuperSchoolsRoute: typeof SuperSchoolsRoute
   SuperIndexRoute: typeof SuperIndexRoute
 }
 
@@ -99,6 +116,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SuperLoginRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/super/schools': {
+      id: '/super/schools'
+      path: '/super/schools'
+      fullPath: '/super/schools'
+      preLoaderRoute: typeof SuperSchoolsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -106,6 +130,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   PrincipalLoginRoute: PrincipalLoginRoute,
   SuperLoginRoute: SuperLoginRoute,
+  SuperSchoolsRoute: SuperSchoolsRoute,
   SuperIndexRoute: SuperIndexRoute,
 }
 export const routeTree = rootRouteImport

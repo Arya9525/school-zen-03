@@ -10,33 +10,102 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as PrincipalIndexRouteImport } from './routes/principal.index'
+import { Route as PrincipalLoginRouteImport } from './routes/principal.login'
+import { Route as SuperIndexRouteImport } from './routes/super.index'
+import { Route as SuperLoginRouteImport } from './routes/super.login'
+import { Route as SuperSchoolsRouteImport } from './routes/super.schools'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const PrincipalIndexRoute = PrincipalIndexRouteImport.update({
+  id: '/principal/',
+  path: '/principal/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PrincipalLoginRoute = PrincipalLoginRouteImport.update({
+  id: '/principal/login',
+  path: '/principal/login',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SuperIndexRoute = SuperIndexRouteImport.update({
+  id: '/super/',
+  path: '/super/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SuperLoginRoute = SuperLoginRouteImport.update({
+  id: '/super/login',
+  path: '/super/login',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SuperSchoolsRoute = SuperSchoolsRouteImport.update({
+  id: '/super/schools',
+  path: '/super/schools',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/principal/login': typeof PrincipalLoginRoute
+  '/super/login': typeof SuperLoginRoute
+  '/super/schools': typeof SuperSchoolsRoute
+  '/principal/': typeof PrincipalIndexRoute
+  '/super/': typeof SuperIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/principal/login': typeof PrincipalLoginRoute
+  '/super/login': typeof SuperLoginRoute
+  '/super/schools': typeof SuperSchoolsRoute
+  '/principal': typeof PrincipalIndexRoute
+  '/super': typeof SuperIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/principal/login': typeof PrincipalLoginRoute
+  '/super/login': typeof SuperLoginRoute
+  '/super/schools': typeof SuperSchoolsRoute
+  '/principal/': typeof PrincipalIndexRoute
+  '/super/': typeof SuperIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/principal/login'
+    | '/super/login'
+    | '/super/schools'
+    | '/principal/'
+    | '/super/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/principal/login'
+    | '/super/login'
+    | '/super/schools'
+    | '/principal'
+    | '/super'
+  id:
+    | '__root__'
+    | '/'
+    | '/principal/login'
+    | '/super/login'
+    | '/super/schools'
+    | '/principal/'
+    | '/super/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  PrincipalLoginRoute: typeof PrincipalLoginRoute
+  SuperLoginRoute: typeof SuperLoginRoute
+  SuperSchoolsRoute: typeof SuperSchoolsRoute
+  PrincipalIndexRoute: typeof PrincipalIndexRoute
+  SuperIndexRoute: typeof SuperIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +117,51 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/principal/': {
+      id: '/principal/'
+      path: '/principal'
+      fullPath: '/principal/'
+      preLoaderRoute: typeof PrincipalIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/principal/login': {
+      id: '/principal/login'
+      path: '/principal/login'
+      fullPath: '/principal/login'
+      preLoaderRoute: typeof PrincipalLoginRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/super/': {
+      id: '/super/'
+      path: '/super'
+      fullPath: '/super/'
+      preLoaderRoute: typeof SuperIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/super/login': {
+      id: '/super/login'
+      path: '/super/login'
+      fullPath: '/super/login'
+      preLoaderRoute: typeof SuperLoginRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/super/schools': {
+      id: '/super/schools'
+      path: '/super/schools'
+      fullPath: '/super/schools'
+      preLoaderRoute: typeof SuperSchoolsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  PrincipalLoginRoute: PrincipalLoginRoute,
+  SuperLoginRoute: SuperLoginRoute,
+  SuperSchoolsRoute: SuperSchoolsRoute,
+  PrincipalIndexRoute: PrincipalIndexRoute,
+  SuperIndexRoute: SuperIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

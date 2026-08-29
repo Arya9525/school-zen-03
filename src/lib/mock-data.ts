@@ -184,7 +184,7 @@ function mk(
     className,
     section,
     admissionDate: "2026-04-12",
-    email: `${fullName.split(" ")[0].toLowerCase()}${id}@parentmail.com`,
+    email: `${(fullName.split(" ")[0] ?? "student").toLowerCase()}${id}@parentmail.com`,
     contact: "+91 98111 00000",
     address: parents.find((p) => p.id === parentId)?.address ?? "",
     parentId,

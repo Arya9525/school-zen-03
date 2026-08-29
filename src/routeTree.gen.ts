@@ -10,11 +10,17 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as PrincipalLoginRouteImport } from './routes/principal.login'
 import { Route as SuperLoginRouteImport } from './routes/super.login'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PrincipalLoginRoute = PrincipalLoginRouteImport.update({
+  id: '/principal/login',
+  path: '/principal/login',
   getParentRoute: () => rootRouteImport,
 } as any)
 const SuperLoginRoute = SuperLoginRouteImport.update({
@@ -25,27 +31,31 @@ const SuperLoginRoute = SuperLoginRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/principal/login': typeof PrincipalLoginRoute
   '/super/login': typeof SuperLoginRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/principal/login': typeof PrincipalLoginRoute
   '/super/login': typeof SuperLoginRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/principal/login': typeof PrincipalLoginRoute
   '/super/login': typeof SuperLoginRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/super/login'
+  fullPaths: '/' | '/principal/login' | '/super/login'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/super/login'
-  id: '__root__' | '/' | '/super/login'
+  to: '/' | '/principal/login' | '/super/login'
+  id: '__root__' | '/' | '/principal/login' | '/super/login'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  PrincipalLoginRoute: typeof PrincipalLoginRoute
   SuperLoginRoute: typeof SuperLoginRoute
 }
 
@@ -56,6 +66,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/principal/login': {
+      id: '/principal/login'
+      path: '/principal/login'
+      fullPath: '/principal/login'
+      preLoaderRoute: typeof PrincipalLoginRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/super/login': {
@@ -70,6 +87,7 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  PrincipalLoginRoute: PrincipalLoginRoute,
   SuperLoginRoute: SuperLoginRoute,
 }
 export const routeTree = rootRouteImport
